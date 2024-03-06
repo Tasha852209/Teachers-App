@@ -1,16 +1,34 @@
-export const App = () => {
+import { Suspense, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './Layout/Layout';
+
+const HomePage = lazy(() => import('pages/HomePage/HomePage'));
+const TeachersPage = lazy(() => import('pages/TeachersPage/TeachersPage'));
+const FavoritesPage = lazy(() => import('pages/FavoritesPage/FavoritesPage'));
+
+const appRoutes = [
+  { path: '/', element: <HomePage /> },
+  {
+    path: '/teachers',
+    element: <TeachersPage />,
+  },
+  {
+    path: '/favorites',
+    element: <FavoritesPage />,
+  },
+];
+const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <Suspense>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {appRoutes.map(({ path, element }) => (
+            <Route key={path} path={path} element={element} />
+          ))}
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
+
+export default App;
