@@ -24,7 +24,7 @@ const ModalComponent = ({ setVisible, children }) => {
   return (
     <StyledModalBackdrop className="visible" onClick={handleBackdropClick}>
       <StyledModal>
-        <button onClick={() => setVisible(false)}>
+        <button className="close-icon" onClick={() => setVisible(false)}>
           <Icon className="modal-icon" id="close" />
         </button>
         {children}

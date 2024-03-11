@@ -14,11 +14,18 @@ export const StyledModalBackdrop = styled.div`
 `;
 
 export const StyledModal = styled.div`
+  position: relative;
   background-color: white;
   padding: 64px;
 
   border-radius: 30px;
-  button {
+  .close-icon {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
