@@ -8,10 +8,13 @@ import {
 } from './LoginForm.styled';
 import togglePassword from 'utils/togglePassword';
 import Icon from 'components/Icon/Icon';
+import { auth } from '../../firebase/config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginForm = () => {
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
+  const [error, setError] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -20,7 +23,14 @@ const LoginForm = () => {
     },
     validationSchema: loginSchema,
     onSubmit: values => {
-      console.log('submit', values);
+      signInWithEmailAndPassword(auth, values.email, values.password)
+        .then(user => {
+          console.log(user);
+        })
+        .catch(err => {
+          console.log(err.message);
+          setError('Email or password is wrong!');
+        });
     },
   });
   return (
@@ -81,7 +91,8 @@ const LoginForm = () => {
           </label>
         </div>
 
-        <SubmitButton type="submit">Sign Up</SubmitButton>
+        <SubmitButton type="submit">Sign In</SubmitButton>
+        {error ? <p>{error}</p> : null}
       </form>
     </StyledModalContent>
   );

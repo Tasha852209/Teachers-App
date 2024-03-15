@@ -1,5 +1,5 @@
 import ModalComponent from 'components/ModalComponent/ModalComponent';
-import AuthForm from 'components/AuthForm/AuthForm';
+import AuthForm from 'components/RegisterForm/RegisterForm';
 import LoginForm from 'components/LoginForm/LoginForm';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';

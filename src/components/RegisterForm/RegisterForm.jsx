@@ -8,11 +8,14 @@ import {
   StyledAuthFormSpan,
   StyledModalContent,
   SubmitButton,
-} from './AuthForm.styled';
+} from './RegisterForm.styled';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/config';
 
-const RegistrationForm = () => {
+const RegisterForm = () => {
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
+  const [error, setError] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -22,7 +25,14 @@ const RegistrationForm = () => {
     },
     validationSchema: registerSchema,
     onSubmit: values => {
-      console.log('submit', values);
+      createUserWithEmailAndPassword(auth, values.email, values.password)
+        .then(user => {
+          console.log(user);
+        })
+        .catch(err => {
+          console.log(err.message);
+          setError('Email in use!');
+        });
     },
   });
   return (
@@ -98,8 +108,9 @@ const RegistrationForm = () => {
         </div>
 
         <SubmitButton type="submit">Sign Up</SubmitButton>
+        {error ? <p>{error}</p> : null}
       </form>
     </StyledModalContent>
   );
 };
-export default RegistrationForm;
+export default RegisterForm;
