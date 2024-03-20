@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
 import { useFormik } from 'formik';
-
-import togglePassword from 'utils/togglePassword';
-import Icon from 'components/Icon/Icon';
-import { registerSchema } from '../../schemas/authSchemas';
+import React, { useState } from 'react';
+import { registerSchema } from 'schemas/authSchemas';
 import {
   StyledAuthFormSpan,
   StyledModalContent,
   SubmitButton,
 } from './RegisterForm.styled';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/config';
+import togglePassword from 'utils/togglePassword';
+import Icon from 'components/Icon/Icon';
+import { useAuth } from '../../providers/AuthProvider';
 
 const RegisterForm = () => {
+  const { userSignUp, error } = useAuth();
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
-  const [error, setError] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -25,14 +23,7 @@ const RegisterForm = () => {
     },
     validationSchema: registerSchema,
     onSubmit: values => {
-      createUserWithEmailAndPassword(auth, values.email, values.password)
-        .then(user => {
-          console.log(user);
-        })
-        .catch(err => {
-          console.log(err.message);
-          setError('Email in use!');
-        });
+      userSignUp(values.email, values.password);
     },
   });
   return (

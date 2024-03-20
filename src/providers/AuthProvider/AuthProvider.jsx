@@ -1,42 +1,66 @@
 import { createContext, useEffect, useState } from 'react';
+import {
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
+import { auth } from '../../firebase/config';
 
 export const AuthContext = createContext({ user: null });
 
 export const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({ uid: '', username: '' });
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
-      const { user } = JSON.parse(currentUser);
-      setIsLoggedIn(true);
-      setUser(user);
-    }
-    setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  function logIn(user) {
-    setIsLoggedIn(true);
-    setUser(user);
-    localStorage.setItem(
-      'currentUser',
-      JSON.stringify({ user, isLoggedIn: true })
-    );
-  }
+  const userSignIn = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then(UserCredentialImpl => {
+        console.log(UserCredentialImpl.user);
+      })
+      .catch(err => {
+        console.log(err.message);
+        setError('Email or password is wrong!');
+      });
+  };
 
-  function logOut() {
-    setIsLoggedIn(false);
-    setUser({ uid: '', username: '' });
-    localStorage.removeItem('currentUser');
-  }
+  const userSignUp = async (email, password) => {
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(UserCredentialImpl => {
+        console.log(UserCredentialImpl.user);
+      })
+      .catch(err => {
+        console.log(err.message);
+        setError('Email in use!');
+      });
+  };
 
-  if (loading) {
-    return null;
-  }
+  const userSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+      })
+      .catch(error => {
+        setError(error.message);
+      });
+  };
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, logIn, logOut }}>
+    <AuthContext.Provider
+      value={{ user, userSignIn, userSignUp, userSignOut, error }}
+    >
       {children}
     </AuthContext.Provider>
   );
