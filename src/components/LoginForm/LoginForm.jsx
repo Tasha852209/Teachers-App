@@ -10,7 +10,7 @@ import togglePassword from 'utils/togglePassword';
 import Icon from 'components/Icon/Icon';
 import { useAuth } from '../../providers/AuthProvider';
 
-const LoginForm = () => {
+const LoginForm = ({ setVisible }) => {
   const { userSignIn, error } = useAuth();
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
@@ -23,6 +23,9 @@ const LoginForm = () => {
     validationSchema: loginSchema,
     onSubmit: values => {
       userSignIn(values.email, values.password);
+      if (!error) {
+        setVisible(false);
+      }
     },
   });
 
