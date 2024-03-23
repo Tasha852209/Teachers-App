@@ -22,7 +22,7 @@ const Navigation = () => {
         <nav>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/teachers">Teachers</NavLink>
-          <NavLink to="/favorites">Favorites</NavLink>
+
           {!user && (
             <>
               <button type="button" onClick={() => handleModalOpen(false)}>
@@ -34,9 +34,12 @@ const Navigation = () => {
             </>
           )}
           {user && (
-            <button type="button" onClick={userSignOut}>
-              Log out
-            </button>
+            <>
+              <NavLink to="/favorites">Favorites</NavLink>
+              <button type="button" onClick={userSignOut}>
+                Log out
+              </button>
+            </>
           )}
         </nav>
       </header>

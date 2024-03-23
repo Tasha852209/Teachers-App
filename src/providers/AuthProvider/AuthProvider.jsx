@@ -22,10 +22,13 @@ export const AuthProvider = ({ children }) => {
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const userSignIn = async (email, password) => {
+    setError(null);
     await signInWithEmailAndPassword(auth, email, password)
       .then(UserCredentialImpl => {
         console.log(UserCredentialImpl.user);
@@ -59,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, userSignIn, userSignUp, userSignOut, error }}
+      value={{ user, userSignIn, userSignUp, userSignOut, error, setError }}
     >
       {children}
     </AuthContext.Provider>

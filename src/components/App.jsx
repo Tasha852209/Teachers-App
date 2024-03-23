@@ -1,6 +1,12 @@
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout/Layout';
+import PrivatreRoute from 'routes/PrivatreRoute';
+
+// import { database } from '../firebase/config';
+// import { ref, set } from 'firebase/database';
+// import teachersData from '../data/teachers.json';
+// import { useEffect } from 'react';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const TeachersPage = lazy(() => import('pages/TeachersPage/TeachersPage'));
@@ -14,10 +20,23 @@ const appRoutes = [
   },
   {
     path: '/favorites',
-    element: <FavoritesPage />,
+    element: (
+      <PrivatreRoute>
+        <FavoritesPage />
+      </PrivatreRoute>
+    ),
   },
 ];
 const App = () => {
+  // useEffect(() => {
+  //   const addTeachersToDatabase = () => {
+  //     const teachersRef = ref(database, 'teachers');
+  //     set(teachersRef, teachersData);
+  //   };
+
+  //   addTeachersToDatabase();
+  // }, []);
+
   return (
     <Suspense>
       <Routes>

@@ -15,6 +15,10 @@ const LoginForm = ({ setVisible }) => {
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
 
+  // useEffect(() => {
+  //   if (!error) setVisible(true);
+  // }, [setVisible, error]);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -23,9 +27,7 @@ const LoginForm = ({ setVisible }) => {
     validationSchema: loginSchema,
     onSubmit: values => {
       userSignIn(values.email, values.password);
-      if (!error) {
-        setVisible(false);
-      }
+      if (!error) setVisible(false);
     },
   });
 
