@@ -27,11 +27,12 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const userSignIn = async (email, password) => {
+  const userSignIn = async (email, password, setVisible) => {
     setError(null);
     await signInWithEmailAndPassword(auth, email, password)
       .then(UserCredentialImpl => {
         console.log(UserCredentialImpl.user);
+        setVisible(false);
       })
       .catch(err => {
         console.log(err.message);
@@ -39,10 +40,11 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const userSignUp = async (email, password) => {
+  const userSignUp = async (email, password, setVisible) => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(UserCredentialImpl => {
         console.log(UserCredentialImpl.user);
+        setVisible(false);
       })
       .catch(err => {
         console.log(err.message);

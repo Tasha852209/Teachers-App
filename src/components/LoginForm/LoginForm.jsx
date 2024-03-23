@@ -26,8 +26,7 @@ const LoginForm = ({ setVisible }) => {
     },
     validationSchema: loginSchema,
     onSubmit: values => {
-      userSignIn(values.email, values.password);
-      if (!error) setVisible(false);
+      userSignIn(values.email, values.password, setVisible);
     },
   });
 

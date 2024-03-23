@@ -23,10 +23,7 @@ const RegisterForm = ({ setVisible }) => {
     },
     validationSchema: registerSchema,
     onSubmit: values => {
-      userSignUp(values.email, values.password);
-      if (!error) {
-        setVisible(false);
-      }
+      userSignUp(values.email, values.password, setVisible);
     },
   });
   return (
