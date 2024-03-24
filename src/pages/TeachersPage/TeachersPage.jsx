@@ -1,7 +1,12 @@
+import TeachersList from 'components/TeachersList/TeachersList';
 import React from 'react';
 
 const TeachersPage = () => {
-  return <div>TeachersPage</div>;
+  return (
+    <div>
+      <TeachersList />
+    </div>
+  );
 };
 
 export default TeachersPage;

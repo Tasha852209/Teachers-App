@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const userSignUp = async (email, password, setVisible) => {
+    setError(null);
     await createUserWithEmailAndPassword(auth, email, password)
       .then(UserCredentialImpl => {
         console.log(UserCredentialImpl.user);
