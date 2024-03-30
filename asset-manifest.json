@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/Teachers-App/static/css/main.09cc9bb5.css",
-    "main.js": "/Teachers-App/static/js/main.de045166.js",
+    "main.js": "/Teachers-App/static/js/main.e6cd0686.js",
     "static/js/680.fe21f916.chunk.js": "/Teachers-App/static/js/680.fe21f916.chunk.js",
-    "static/js/980.25ec5dc1.chunk.js": "/Teachers-App/static/js/980.25ec5dc1.chunk.js",
-    "static/js/413.ec40c9cd.chunk.js": "/Teachers-App/static/js/413.ec40c9cd.chunk.js",
+    "static/js/831.cba6d734.chunk.js": "/Teachers-App/static/js/831.cba6d734.chunk.js",
+    "static/js/910.c8f1224c.chunk.js": "/Teachers-App/static/js/910.c8f1224c.chunk.js",
     "static/media/sprite.svg": "/Teachers-App/static/media/sprite.3ba3d89ad3bbfb6c3002983e87a3d8a9.svg",
     "index.html": "/Teachers-App/index.html",
     "main.09cc9bb5.css.map": "/Teachers-App/static/css/main.09cc9bb5.css.map",
-    "main.de045166.js.map": "/Teachers-App/static/js/main.de045166.js.map",
+    "main.e6cd0686.js.map": "/Teachers-App/static/js/main.e6cd0686.js.map",
     "680.fe21f916.chunk.js.map": "/Teachers-App/static/js/680.fe21f916.chunk.js.map",
-    "980.25ec5dc1.chunk.js.map": "/Teachers-App/static/js/980.25ec5dc1.chunk.js.map",
-    "413.ec40c9cd.chunk.js.map": "/Teachers-App/static/js/413.ec40c9cd.chunk.js.map"
+    "831.cba6d734.chunk.js.map": "/Teachers-App/static/js/831.cba6d734.chunk.js.map",
+    "910.c8f1224c.chunk.js.map": "/Teachers-App/static/js/910.c8f1224c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.09cc9bb5.css",
-    "static/js/main.de045166.js"
+    "static/js/main.e6cd0686.js"
   ]
 }
