@@ -74,6 +74,7 @@ const RegisterForm = ({ setVisible }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
                 placeholder="Password"
+                autoComplete="current-password"
               />
 
               <StyledAuthFormSpan

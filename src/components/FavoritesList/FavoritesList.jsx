@@ -9,12 +9,14 @@ import {
   orderByKey,
 } from 'firebase/database';
 import TeacherCard from 'components/TeacherCard/TeacherCard';
+import { useAuth } from 'providers';
 
 const PER_PAGE = 4;
 
-const TeachersList = () => {
+const FavoritesList = () => {
   const [teachers, setTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
+  const { user } = useAuth();
 
   const onLoadMore = async () => {
     setLastId(teachers[teachers.length - 1].id);
@@ -31,7 +33,10 @@ const TeachersList = () => {
       const constraints = [orderByKey(), limitToFirst(PER_PAGE)];
       if (lastId) constraints.push(startAfter(lastId));
       try {
-        const teachersRef = query(ref(database, 'teachers'), ...constraints);
+        const teachersRef = query(
+          ref(database, `users/${user.id}/favorites`),
+          ...constraints
+        );
         const snapshot = await get(teachersRef);
 
         const data = snapshot.val();
@@ -50,7 +55,7 @@ const TeachersList = () => {
     };
 
     fetchTeachers();
-  }, [lastId]);
+  }, [lastId, user.id]);
 
   return (
     <div>
@@ -68,4 +73,4 @@ const TeachersList = () => {
   );
 };
 
-export default TeachersList;
+export default FavoritesList;

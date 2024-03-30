@@ -5,20 +5,43 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '../../firebase/config';
+import { auth, database } from '../../fire_base/config';
+import { createUser, getUser } from '../../fire_base/users';
+import { onValue, ref } from 'firebase/database';
 
 export const AuthContext = createContext({ user: null });
 
 export const AuthProvider = ({ children }) => {
+  const [userId, setUserId] = useState(null);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, async user => {
       if (user) {
-        setUser(user);
+        const { uid, email } = user;
+        try {
+          const dbUser = await getUser(uid);
+
+          if (!dbUser) {
+            await createUser(uid, {
+              email,
+              roles: ['start'],
+              favorites: [],
+            });
+            setUserId(uid);
+            return;
+          }
+
+          setUserId(uid);
+        } catch (error) {
+          console.log(error.message);
+        } finally {
+          setIsRefreshing(false);
+        }
       } else {
-        setUser(null);
+        setIsRefreshing(false);
       }
     });
 
@@ -27,11 +50,22 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!userId) return;
+    const unsubscribe = onValue(ref(database, `/users/${userId}`), snapshot => {
+      const data = snapshot.val();
+      setUser({ id: userId, ...data });
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [userId]);
+
   const userSignIn = async (email, password, setVisible) => {
     setError(null);
     await signInWithEmailAndPassword(auth, email, password)
       .then(UserCredentialImpl => {
-        console.log(UserCredentialImpl.user);
         setVisible(false);
       })
       .catch(err => {
@@ -44,7 +78,6 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     await createUserWithEmailAndPassword(auth, email, password)
       .then(UserCredentialImpl => {
-        console.log(UserCredentialImpl.user);
         setVisible(false);
       })
       .catch(err => {
@@ -67,7 +100,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{ user, userSignIn, userSignUp, userSignOut, error, setError }}
     >
-      {children}
+      {isRefreshing ? <div>...is loading</div> : children}
     </AuthContext.Provider>
   );
 };

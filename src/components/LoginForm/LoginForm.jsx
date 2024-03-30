@@ -15,10 +15,6 @@ const LoginForm = ({ setVisible }) => {
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
 
-  // useEffect(() => {
-  //   if (!error) setVisible(true);
-  // }, [setVisible, error]);
-
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -64,6 +60,7 @@ const LoginForm = ({ setVisible }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
                 placeholder="Password"
+                autoComplete="current-password"
               />
 
               <StyledAuthFormSpan
