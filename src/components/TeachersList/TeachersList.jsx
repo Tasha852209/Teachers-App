@@ -12,7 +12,7 @@ import TeacherCard from 'components/TeacherCard/TeacherCard';
 
 const PER_PAGE = 4;
 
-const TeachersList = () => {
+const TeachersList = ({ favorite }) => {
   const [teachers, setTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
 
@@ -101,7 +101,7 @@ const TeachersList = () => {
   return (
     <div>
       {teachers.map(teacher => (
-        <TeacherCard key={teacher.id} teacher={teacher} />
+        <TeacherCard favorites={favorite} key={teacher.id} teacher={teacher} />
       ))}
       <button
         onClick={() => {

@@ -4,7 +4,7 @@ import Level from './Level';
 import { updateFavorites } from '../../fire_base/users';
 import { useAuth } from 'providers';
 
-const TeacherCard = ({ teacher }) => {
+const TeacherCard = ({ teacher, favorite }) => {
   const { user } = useAuth();
   const favorites = Array.isArray(user?.favorites) ? user.favorites : [];
 
@@ -57,9 +57,11 @@ const TeacherCard = ({ teacher }) => {
           <Level key={index} level={level} />
         ))}
       </div>
-      <button onClick={onToggleFavorites}>
-        {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-      </button>
+      {!favorite && (
+        <button onClick={onToggleFavorites}>
+          {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        </button>
+      )}
       <button>Book trial lesson</button>
     </section>
   );

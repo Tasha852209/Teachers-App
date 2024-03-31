@@ -4,7 +4,7 @@ import React from 'react';
 const TeachersPage = () => {
   return (
     <div>
-      <TeachersList />
+      <TeachersList favorite={false} />
     </div>
   );
 };

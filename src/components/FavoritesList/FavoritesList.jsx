@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { database } from '../../fire_base/config';
 import {
   ref,
@@ -7,68 +7,91 @@ import {
   query,
   startAfter,
   orderByKey,
+  remove,
 } from 'firebase/database';
 import TeacherCard from 'components/TeacherCard/TeacherCard';
 import { useAuth } from 'providers';
 
 const PER_PAGE = 4;
 
-const FavoritesList = () => {
-  const [teachers, setTeachers] = useState([]);
+const FavoritesList = ({ favorite }) => {
+  const [favoriteTeachers, setFavoriteTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
   const { user } = useAuth();
 
   const onLoadMore = async () => {
-    setLastId(teachers[teachers.length - 1].id);
+    const q = query(
+      ref(database, `users/${user.id}/favorites`),
+      orderByKey(),
+      startAfter(lastId),
+      limitToFirst(PER_PAGE)
+    );
+
+    const snapshot = await get(q);
+    const data = snapshot.val();
+
+    if (snapshot.exists()) {
+      const normalizeData = Object.entries(data).map(([key, value]) => ({
+        id: key,
+        ...value,
+      }));
+      setFavoriteTeachers(prev => [...prev, ...normalizeData]);
+      setLastId(normalizeData[normalizeData.length - 1]?.id);
+    }
   };
 
-  const firstRender = useRef(true);
+  const fetchFavoriteTeachers = async () => {
+    try {
+      const teachersRef = query(
+        ref(database, 'teachers'),
+        orderByKey(),
+        limitToFirst(PER_PAGE)
+      );
+      const snapshot = await get(teachersRef);
+      const data = snapshot.val();
 
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    const fetchTeachers = async () => {
-      const constraints = [orderByKey(), limitToFirst(PER_PAGE)];
-      if (lastId) constraints.push(startAfter(lastId));
-      try {
-        const teachersRef = query(
-          ref(database, `users/${user.id}/favorites`),
-          ...constraints
-        );
-        const snapshot = await get(teachersRef);
-
-        const data = snapshot.val();
-
-        if (snapshot.exists()) {
-          const normalizeData = Object.entries(data).map(([key, value]) => ({
-            id: key,
-            ...value,
-          }));
-          setTeachers(prev => [...prev, ...normalizeData]);
-          //    setLastId(teachers[teachers.length - 1].id);
-        }
-      } catch (error) {
-        console.error('Error fetching teachers:', error);
+      if (snapshot.exists()) {
+        const normalizeData = Object.entries(data).map(([key, value]) => ({
+          id: key,
+          ...value,
+        }));
+        setFavoriteTeachers(prev => [...prev, ...normalizeData]);
+        setLastId(normalizeData[normalizeData.length - 1].id);
       }
-    };
+    } catch (error) {
+      console.log('Error fetching teachers:', error);
+    }
+  };
+  useEffect(() => {
+    fetchFavoriteTeachers();
+  }, []);
 
-    fetchTeachers();
-  }, [lastId, user.id]);
+  const removeFromFavorites = async teacherId => {
+    try {
+      await remove(ref(database, `users/${user.id}/favorites/${teacherId}`));
+      setFavoriteTeachers(prev =>
+        prev.filter(teacher => teacher.id !== teacherId)
+      );
+    } catch (error) {
+      console.log('Error removing teacher from favorites:', error);
+    }
+  };
+
+  const renderFavoriteTeachers = () => {
+    return favoriteTeachers.map(teacher => (
+      <div key={teacher.id}>
+        <TeacherCard favorite={favorite} teacher={teacher} />
+        <button onClick={() => removeFromFavorites(teacher.id)}>
+          Remove from favorites
+        </button>
+      </div>
+    ));
+  };
 
   return (
     <div>
-      {teachers.map(teacher => (
-        <TeacherCard key={teacher.id} teacher={teacher} />
-      ))}
-      <button
-        onClick={() => {
-          onLoadMore();
-        }}
-      >
-        LOAD MORE
-      </button>
+      {renderFavoriteTeachers()}
+      <button onClick={onLoadMore}>LOAD MORE</button>
     </div>
   );
 };
