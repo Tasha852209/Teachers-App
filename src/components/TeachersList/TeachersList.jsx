@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { database } from '../../fire_base/config';
 import {
   ref,
@@ -17,23 +17,35 @@ const TeachersList = () => {
   const [lastId, setLastId] = useState(null);
 
   const onLoadMore = async () => {
-    setLastId(teachers[teachers.length - 1].id);
+    const q = query(
+      ref(database, 'teachers'),
+      orderByKey(),
+      startAfter(lastId),
+      limitToFirst(PER_PAGE)
+    );
+
+    const snapshot = await get(q);
+    const data = snapshot.val();
+
+    if (snapshot.exists()) {
+      const normalizeData = Object.entries(data).map(([key, value]) => ({
+        id: key,
+        ...value,
+      }));
+      setTeachers(prev => [...prev, ...normalizeData]);
+      setLastId(normalizeData[normalizeData.length - 1]?.id);
+    }
   };
 
-  const firstRender = useRef(true);
-
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
     const fetchTeachers = async () => {
-      const constraints = [orderByKey(), limitToFirst(PER_PAGE)];
-      if (lastId) constraints.push(startAfter(lastId));
       try {
-        const teachersRef = query(ref(database, 'teachers'), ...constraints);
+        const teachersRef = query(
+          ref(database, 'teachers'),
+          orderByKey(),
+          limitToFirst(PER_PAGE)
+        );
         const snapshot = await get(teachersRef);
-
         const data = snapshot.val();
 
         if (snapshot.exists()) {
@@ -42,15 +54,49 @@ const TeachersList = () => {
             ...value,
           }));
           setTeachers(prev => [...prev, ...normalizeData]);
-          //    setLastId(teachers[teachers.length - 1].id);
+          setLastId(normalizeData[normalizeData.length - 1].id);
         }
       } catch (error) {
-        console.error('Error fetching teachers:', error);
+        console.log('Error fetching teachers:', error);
       }
     };
-
     fetchTeachers();
-  }, [lastId]);
+  }, []);
+  // const onLoadMore = async () => {
+  //   setLastId(teachers[teachers.length - 1].id);
+  // };
+
+  // const firstRender = useRef(true);
+
+  // useEffect(() => {
+  //   if (firstRender.current) {
+  //     firstRender.current = false;
+  //     return;
+  //   }
+  //   const fetchTeachers = async () => {
+  //     const constraints = [orderByKey(), limitToFirst(PER_PAGE)];
+  //     if (lastId) constraints.push(startAfter(lastId));
+  //     try {
+  //       const teachersRef = query(ref(database, 'teachers'), ...constraints);
+  //       const snapshot = await get(teachersRef);
+
+  //       const data = snapshot.val();
+
+  //       if (snapshot.exists()) {
+  //         const normalizeData = Object.entries(data).map(([key, value]) => ({
+  //           id: key,
+  //           ...value,
+  //         }));
+  //         setTeachers(prev => [...prev, ...normalizeData]);
+  //         //    setLastId(teachers[teachers.length - 1].id);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching teachers:', error);
+  //     }
+  //   };
+
+  //   fetchTeachers();
+  // }, [lastId]);
 
   return (
     <div>
