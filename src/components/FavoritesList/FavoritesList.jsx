@@ -43,7 +43,7 @@ const FavoritesList = ({ favorite }) => {
       }
     };
     fetchFavoriteTeachers();
-  }, []); // Викликається лише під час першого рендеру
+  }, [user.id]); // Викликається лише під час першого рендеру
 
   const onLoadMore = async () => {
     const q = query(
