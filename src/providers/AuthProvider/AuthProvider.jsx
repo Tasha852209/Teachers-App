@@ -64,14 +64,18 @@ export const AuthProvider = ({ children }) => {
 
   const userSignIn = async (email, password, setVisible) => {
     setError(null);
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(UserCredentialImpl => {
-        setVisible(false);
-      })
-      .catch(err => {
-        console.log(err.message);
-        setError('Email or password is wrong!');
-      });
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setVisible(false);
+      // Після успішного входу оновлюємо стан користувача
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    } catch (error) {
+      console.log(error.message);
+      setError('Email or password is wrong!');
+    }
   };
 
   const userSignUp = async (email, password, setVisible) => {

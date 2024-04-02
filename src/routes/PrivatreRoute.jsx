@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 
 const PrivatreRoute = ({ children, redirectTo = '/' }) => {
   const { user } = useAuth();
-  return user ? children : <Navigate to={redirectTo} replace />;
+  return user ? children : <Navigate to={redirectTo} />;
 };
 
 export default PrivatreRoute;

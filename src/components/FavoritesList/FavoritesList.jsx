@@ -19,6 +19,32 @@ const FavoritesList = ({ favorite }) => {
   const [lastId, setLastId] = useState(null);
   const { user } = useAuth();
 
+  useEffect(() => {
+    const fetchFavoriteTeachers = async () => {
+      try {
+        const q = query(
+          ref(database, `users/${user.id}/favorites`),
+          orderByKey(),
+          limitToFirst(PER_PAGE)
+        );
+        const snapshot = await get(q);
+        const data = snapshot.val();
+
+        if (snapshot.exists()) {
+          const normalizeData = Object.entries(data).map(([key, value]) => ({
+            id: key,
+            ...value,
+          }));
+          setFavoriteTeachers(normalizeData);
+          setLastId(normalizeData[normalizeData.length - 1]?.id);
+        }
+      } catch (error) {
+        console.log('Error fetching favorite teachers:', error);
+      }
+    };
+    fetchFavoriteTeachers();
+  }, []); // Викликається лише під час першого рендеру
+
   const onLoadMore = async () => {
     const q = query(
       ref(database, `users/${user.id}/favorites`),
@@ -39,32 +65,6 @@ const FavoritesList = ({ favorite }) => {
       setLastId(normalizeData[normalizeData.length - 1]?.id);
     }
   };
-
-  const fetchFavoriteTeachers = async () => {
-    try {
-      const teachersRef = query(
-        ref(database, 'teachers'),
-        orderByKey(),
-        limitToFirst(PER_PAGE)
-      );
-      const snapshot = await get(teachersRef);
-      const data = snapshot.val();
-
-      if (snapshot.exists()) {
-        const normalizeData = Object.entries(data).map(([key, value]) => ({
-          id: key,
-          ...value,
-        }));
-        setFavoriteTeachers(prev => [...prev, ...normalizeData]);
-        setLastId(normalizeData[normalizeData.length - 1].id);
-      }
-    } catch (error) {
-      console.log('Error fetching teachers:', error);
-    }
-  };
-  useEffect(() => {
-    fetchFavoriteTeachers();
-  }, []);
 
   const removeFromFavorites = async teacherId => {
     try {
@@ -90,8 +90,11 @@ const FavoritesList = ({ favorite }) => {
 
   return (
     <div>
-      {renderFavoriteTeachers()}
-      <button onClick={onLoadMore}>LOAD MORE</button>
+      {user.favorites && renderFavoriteTeachers()}
+      {user.favorites && user.favorites.length > favoriteTeachers.length && (
+        <button onClick={onLoadMore}>LOAD MORE</button>
+      )}
+      {!user.favorites && <p>There no favorites teachers</p>}
     </div>
   );
 };

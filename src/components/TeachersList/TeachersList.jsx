@@ -15,6 +15,7 @@ const PER_PAGE = 4;
 const TeachersList = ({ favorite }) => {
   const [teachers, setTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
+  const [allTeachers, setAllTeachers] = useState([]);
 
   const onLoadMore = async () => {
     const q = query(
@@ -34,6 +35,7 @@ const TeachersList = ({ favorite }) => {
       }));
       setTeachers(prev => [...prev, ...normalizeData]);
       setLastId(normalizeData[normalizeData.length - 1]?.id);
+      console.log(teachers);
     }
   };
 
@@ -62,6 +64,23 @@ const TeachersList = ({ favorite }) => {
     };
     fetchTeachers();
   }, []);
+
+  const fetchAllTeachers = async () => {
+    try {
+      const allTeachersRef = ref(database, 'teachers');
+      const allSnapshot = await get(allTeachersRef);
+      const allTeachersData = [];
+
+      allSnapshot.forEach(childSnapshot => {
+        allTeachersData.push(childSnapshot.val());
+      });
+
+      setAllTeachers(allTeachersData);
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
+    }
+  };
+  fetchAllTeachers();
   // const onLoadMore = async () => {
   //   setLastId(teachers[teachers.length - 1].id);
   // };
@@ -103,13 +122,9 @@ const TeachersList = ({ favorite }) => {
       {teachers.map(teacher => (
         <TeacherCard favorites={favorite} key={teacher.id} teacher={teacher} />
       ))}
-      <button
-        onClick={() => {
-          onLoadMore();
-        }}
-      >
-        LOAD MORE
-      </button>
+      {teachers.length < allTeachers.length && (
+        <button onClick={onLoadMore}>LOAD MORE</button>
+      )}
     </div>
   );
 };

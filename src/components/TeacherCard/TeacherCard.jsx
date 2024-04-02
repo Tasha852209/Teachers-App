@@ -26,6 +26,10 @@ const TeacherCard = ({ teacher, favorite }) => {
 
   const isFavorite = favorites.some(t => t.id === teacher.id);
 
+  const onSignIn = () => {
+    return alert('Please register or sign in');
+  };
+
   return (
     <section>
       <div>
@@ -57,8 +61,13 @@ const TeacherCard = ({ teacher, favorite }) => {
           <Level key={index} level={level} />
         ))}
       </div>
-      {!favorite && (
+      {user && !favorite && (
         <button onClick={onToggleFavorites}>
+          {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        </button>
+      )}
+      {!user && !favorite && (
+        <button onClick={onSignIn}>
           {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         </button>
       )}
