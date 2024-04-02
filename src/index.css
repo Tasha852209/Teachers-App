@@ -5,6 +5,7 @@
   margin: 0;
 }
 body {
+  background-color: var(--back-color);
   margin: 0;
   color: var(--text-color-black);
   line-height: 1.375;
@@ -25,6 +26,7 @@ li {
 }
 
 :root {
+  --back-color: #eeeeee;
   --primary-orange: #f4c550;
   --secondary-orange: #ffdc86;
   --text-color-black: #121417;

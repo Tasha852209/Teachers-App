@@ -3,6 +3,11 @@ const { default: styled } = require('@emotion/styled');
 export const StyledCard = styled.div`
   display: flex;
   gap: 48px;
+  padding: 24px;
+
+  background-color: #ffff;
+
+  border-radius: 24px;
 
   img {
     width: 96px;
@@ -14,6 +19,10 @@ export const StyledCard = styled.div`
   color: var(--text-color-black);
   font-weight: 500;
 
+  h2 {
+    margin-bottom: 32px;
+  }
+
   .languages {
     text-decoration: underline;
     margin-bottom: 8px;
@@ -22,20 +31,26 @@ export const StyledCard = styled.div`
   .grey-text-color {
     color: #8a8a89;
   }
-  .all-content {
+  .all-content,
+  .other-content {
     display: flex;
     flex-direction: column;
     gap: 32px;
   }
+
   .card-main-content {
     position: relative;
     padding-top: 4px;
   }
 
+  .experience {
+    font-weight: 400;
+  }
+
   .statistics-favorites {
     position: absolute;
     top: 0;
-    left: 192px;
+    right: 0px;
     display: flex;
     align-items: center;
   }
@@ -56,9 +71,22 @@ export const StyledCard = styled.div`
     flex-direction: column;
     gap: 32px;
   }
+  .levels {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .level {
+    padding: 8px 12px;
+    border: 1px solid #12141733;
+    border-radius: 35px;
+  }
 
   .lessons-online,
-  .rating {
+  .rating,
+  .reviewers {
     display: flex;
     align-items: center;
     gap: 8px;

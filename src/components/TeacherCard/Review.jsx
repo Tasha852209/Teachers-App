@@ -6,8 +6,10 @@ const Review = ({ review }) => {
     <div>
       <p className="grey-text-color">{review.reviewer_name}</p>
       <p>
-        <Icon className="star" id="star" />
-        {review.reviewer_rating}
+        <span className="reviewers">
+          <Icon className="star" id="star" />
+          <span>{review.reviewer_rating}</span>
+        </span>
       </p>
       <p>{review.comment}</p>
     </div>

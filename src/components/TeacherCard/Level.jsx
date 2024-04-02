@@ -3,7 +3,7 @@ import React from 'react';
 const Level = ({ level }) => {
   return (
     <div>
-      <span>{level}</span>
+      <span className="level">#{level}</span>
     </div>
   );
 };
