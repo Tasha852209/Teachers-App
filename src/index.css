@@ -31,5 +31,6 @@ li {
 }
 
 section {
+  width: 1440px;
   padding: 96px 128px;
 }

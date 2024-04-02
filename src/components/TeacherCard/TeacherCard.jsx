@@ -34,80 +34,93 @@ const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
 
   return (
     <StyledCard>
-      <div>
+      <div className="ellipse-container">
         <Icon className="ellipse" id="ellipse" />
-        <img src={teacher.avatar_url} alt={teacher.name} width={50} />
+        <img src={teacher.avatar_url} alt={teacher.name} />
       </div>
-      <div className="card-content">
-        <div className="statistics-favorites">
-          <div className="statistics">
-            <span className="lessons-online item">
-              <Icon className="book-open" id="book-open" />
+      <div className="all-content">
+        <div className="card-main-content">
+          <div className="statistics-favorites">
+            <div className="statistics">
+              <span className="lessons-online item">
+                <Icon className="book-open" id="book-open" />
 
-              <span>Lessons online</span>
-            </span>
-            <span className="item">Lessons done: {teacher.lessons_done}</span>
+                <span>Lessons online</span>
+              </span>
+              <span className="item">Lessons done: {teacher.lessons_done}</span>
 
-            <span className="rating item">
-              <Icon className="star" id="star" />
+              <span className="rating item">
+                <Icon className="star" id="star" />
 
-              <span>Rating: {teacher.rating}</span>
-            </span>
-            <span className="item">
-              Price/1hour:
-              <span className="price"> {teacher.price_per_hour}$</span>
-            </span>
+                <span>Rating: {teacher.rating}</span>
+              </span>
+              <span className="item">
+                Price/1hour:
+                <span className="price"> {teacher.price_per_hour}$</span>
+              </span>
+            </div>
+
+            {user && !favorite && (
+              <button className="heart-button" onClick={onToggleFavorites}>
+                {isFavorite ? (
+                  <Icon id="fill-heart" className="fill-heart" />
+                ) : (
+                  <Icon id="heart" className="transparent-heart" />
+                )}
+              </button>
+            )}
+            {!user && !favorite && (
+              <button className="heart-button" onClick={onSignIn}>
+                {isFavorite ? (
+                  <Icon id="fill-heart" className="fill-heart" />
+                ) : (
+                  <Icon id="heart" className="transparent-heart" />
+                )}
+              </button>
+            )}
+            {user && favorite && (
+              <button
+                className="heart-button"
+                onClick={() => removeFromFavorites(teacher.id)}
+              >
+                <Icon id="fill-heart" className="fill-heart" />
+              </button>
+            )}
           </div>
 
-          {user && !favorite && (
-            <button className="heart-button" onClick={onToggleFavorites}>
-              {isFavorite ? (
-                <Icon id="fill-heart" className="fill-heart" />
-              ) : (
-                <Icon id="heart" className="transparent-heart" />
-              )}
-            </button>
-          )}
-          {!user && !favorite && (
-            <button className="heart-button" onClick={onSignIn}>
-              {isFavorite ? (
-                <Icon id="fill-heart" className="fill-heart" />
-              ) : (
-                <Icon id="heart" className="transparent-heart" />
-              )}
-            </button>
-          )}
-          {user && favorite && (
-            <button
-              className="heart-button"
-              onClick={() => removeFromFavorites(teacher.id)}
-            >
-              <Icon id="fill-heart" className="fill-heart" />
-            </button>
-          )}
-        </div>
-
-        <div>
-          <p>Languages</p>
+          <p className="grey-text-color">Languages</p>
           <h2>
             {teacher.name} {teacher.surname}
           </h2>
-          <p>Speaks: {teacher.languages.join(', ')}</p>
-          <p>Lesson Info: {teacher.lesson_info}</p>
-          <p>{teacher.experience}</p>
+          <div className="info">
+            <p>
+              <span className="grey-text-color ">Speaks: </span>
+              <span className="languages">{teacher.languages.join(', ')}</span>
+            </p>
+            <p>
+              <span className="grey-text-color">Lesson Info: </span>
+              {teacher.lesson_info}
+            </p>
+            <p>
+              <span className="grey-text-color">Conditions: </span>
+              {teacher.conditions.join(' ')}
+            </p>
+          </div>
+          <p className="experience">{teacher.experience}</p>
         </div>
-        <div>
-          {teacher.reviews.map((review, index) => (
-            <Review key={index} review={review} />
-          ))}
+        <div className="other-content">
+          <div className="reviews">
+            {teacher.reviews.map((review, index) => (
+              <Review key={index} review={review} />
+            ))}
+          </div>
+          <div className="levels">
+            {teacher.levels.map((level, index) => (
+              <Level key={index} level={level} />
+            ))}
+          </div>
+          <CardBookButton>Book trial lesson</CardBookButton>
         </div>
-        <div>
-          {teacher.levels.map((level, index) => (
-            <Level key={index} level={level} />
-          ))}
-        </div>
-
-        <CardBookButton>Book trial lesson</CardBookButton>
       </div>
     </StyledCard>
   );

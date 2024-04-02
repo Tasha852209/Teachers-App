@@ -3,9 +3,39 @@ const { default: styled } = require('@emotion/styled');
 export const StyledCard = styled.div`
   display: flex;
   gap: 48px;
-  padding: 24px;
+
+  img {
+    width: 96px;
+    border-radius: 50%;
+    border: 1 solid #fbe9ba;
+    box-shadow: 0 0 0px 9px #ffff, 0 0 0px 12px #fbe9ba;
+  }
+  line-height: 1.5;
+  color: var(--text-color-black);
+  font-weight: 500;
+
+  .languages {
+    text-decoration: underline;
+    margin-bottom: 8px;
+  }
+
+  .grey-text-color {
+    color: #8a8a89;
+  }
+  .all-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .card-main-content {
+    position: relative;
+    padding-top: 4px;
+  }
 
   .statistics-favorites {
+    position: absolute;
+    top: 0;
+    left: 192px;
     display: flex;
     align-items: center;
   }
@@ -13,6 +43,18 @@ export const StyledCard = styled.div`
     display: flex;
     align-items: center;
     font-weight: 500;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
   }
 
   .lessons-online,
@@ -41,9 +83,17 @@ export const StyledCard = styled.div`
     height: 26px;
     width: 26px;
   }
+  .ellipse-container {
+    padding: 13px;
+    position: relative;
+  }
   .ellipse {
-    height: 8px;
-    width: 8px;
+    position: absolute;
+    z-index: 100;
+    top: 18px;
+    left: 85px;
+    height: 12px;
+    width: 12px;
   }
   .book-open {
     height: 16px;

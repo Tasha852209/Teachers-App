@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import PrivatreRoute from 'routes/PrivatreRoute';
 
-// import { database } from '../firebase/config';
+// import { database } from '../fire_base/config';
 // import { ref, set } from 'firebase/database';
 // import teachersData from '../data/teachers.json';
 // import { useEffect } from 'react';

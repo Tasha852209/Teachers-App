@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const StyledCardsContainer = styled.div`
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 32px;
