@@ -12,6 +12,8 @@ import {
 import TeacherCard from 'components/TeacherCard/TeacherCard';
 import { useAuth } from 'providers';
 
+import { LoadMoreButton } from 'components/TeachersList/TeachersList.styled';
+
 const PER_PAGE = 4;
 
 const FavoritesList = ({ favorite }) => {
@@ -80,10 +82,17 @@ const FavoritesList = ({ favorite }) => {
   const renderFavoriteTeachers = () => {
     return favoriteTeachers.map(teacher => (
       <div key={teacher.id}>
-        <TeacherCard favorite={favorite} teacher={teacher} />
-        <button onClick={() => removeFromFavorites(teacher.id)}>
-          Remove from favorites
-        </button>
+        <TeacherCard
+          removeFromFavorites={removeFromFavorites}
+          favorite={favorite}
+          teacher={teacher}
+        />
+        {/* <HeartButton
+          className="heart-button"
+          onClick={() => removeFromFavorites(teacher.id)}
+        >
+          <Icon id="fill-heart" className="fill-heart" />
+        </HeartButton> */}
       </div>
     ));
   };
@@ -92,9 +101,9 @@ const FavoritesList = ({ favorite }) => {
     <div>
       {user.favorites && renderFavoriteTeachers()}
       {user.favorites && user.favorites.length > favoriteTeachers.length && (
-        <button onClick={onLoadMore}>LOAD MORE</button>
+        <LoadMoreButton onClick={onLoadMore}>LOAD MORE</LoadMoreButton>
       )}
-      {!user.favorites && <p>There no favorites teachers</p>}
+      {!user.favorites && <p>There no favorite teachers</p>}
     </div>
   );
 };

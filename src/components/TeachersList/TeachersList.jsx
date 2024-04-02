@@ -9,6 +9,7 @@ import {
   orderByKey,
 } from 'firebase/database';
 import TeacherCard from 'components/TeacherCard/TeacherCard';
+import { LoadMoreButton, StyledCardsContainer } from './TeachersList.styled';
 
 const PER_PAGE = 4;
 
@@ -118,14 +119,14 @@ const TeachersList = ({ favorite }) => {
   // }, [lastId]);
 
   return (
-    <div>
+    <StyledCardsContainer>
       {teachers.map(teacher => (
         <TeacherCard favorites={favorite} key={teacher.id} teacher={teacher} />
       ))}
       {teachers.length < allTeachers.length && (
-        <button onClick={onLoadMore}>LOAD MORE</button>
+        <LoadMoreButton onClick={onLoadMore}>LOAD MORE</LoadMoreButton>
       )}
-    </div>
+    </StyledCardsContainer>
   );
 };
 

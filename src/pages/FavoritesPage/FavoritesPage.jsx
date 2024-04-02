@@ -3,9 +3,9 @@ import React from 'react';
 
 const FavoritesPage = () => {
   return (
-    <div>
+    <section>
       <FavoritesList favorite={true} />
-    </div>
+    </section>
   );
 };
 

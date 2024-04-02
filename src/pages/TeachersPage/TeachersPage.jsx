@@ -3,9 +3,9 @@ import React from 'react';
 
 const TeachersPage = () => {
   return (
-    <div>
+    <section>
       <TeachersList favorite={false} />
-    </div>
+    </section>
   );
 };
 

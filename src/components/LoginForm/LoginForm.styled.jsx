@@ -69,7 +69,7 @@ export const SubmitButton = styled.button`
   border-radius: 12px;
   background-color: var(--primary-orange);
   &:hover,
-  &:focus {
+  &:active {
     background-color: var(--secondary-orange);
   }
 `;

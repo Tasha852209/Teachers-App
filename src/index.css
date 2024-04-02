@@ -29,3 +29,7 @@ li {
   --secondary-orange: #ffdc86;
   --text-color-black: #121417;
 }
+
+section {
+  padding: 96px 128px;
+}
