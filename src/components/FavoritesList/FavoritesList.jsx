@@ -8,11 +8,13 @@ import {
   startAfter,
   orderByKey,
   remove,
+  off,
 } from 'firebase/database';
 import TeacherCard from 'components/TeacherCard/TeacherCard';
 import { useAuth } from 'providers';
 
 import { LoadMoreButton } from 'components/TeachersList/TeachersList.styled';
+import { StyledFavoritesCardsContainer } from './FavoritesList.styled';
 
 const PER_PAGE = 4;
 
@@ -20,6 +22,7 @@ const FavoritesList = ({ favorite }) => {
   const [favoriteTeachers, setFavoriteTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
   const { user } = useAuth();
+  let q;
 
   useEffect(() => {
     const fetchFavoriteTeachers = async () => {
@@ -43,9 +46,14 @@ const FavoritesList = ({ favorite }) => {
       } catch (error) {
         console.log('Error fetching favorite teachers:', error);
       }
+      return () => {
+        if (q) {
+          off(q); // Відписуємося від подій
+        }
+      };
     };
     fetchFavoriteTeachers();
-  }, [user.id]); // Викликається лише під час першого рендеру
+  }, [user.id, q]); // Викликається лише під час першого рендеру
 
   const onLoadMore = async () => {
     const q = query(
@@ -98,13 +106,13 @@ const FavoritesList = ({ favorite }) => {
   };
 
   return (
-    <div>
+    <StyledFavoritesCardsContainer>
       {user.favorites && renderFavoriteTeachers()}
       {user.favorites && user.favorites.length > favoriteTeachers.length && (
         <LoadMoreButton onClick={onLoadMore}>LOAD MORE</LoadMoreButton>
       )}
       {!user.favorites && <p>There no favorite teachers</p>}
-    </div>
+    </StyledFavoritesCardsContainer>
   );
 };
 
