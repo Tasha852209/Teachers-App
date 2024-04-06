@@ -14,6 +14,7 @@ export const StyledModalBackdrop = styled.div`
 `;
 
 export const StyledModal = styled.div`
+  overflow: auto;
   position: relative;
   background-color: white;
   padding: 64px;

@@ -7,7 +7,6 @@ import {
   query,
   startAfter,
   orderByKey,
-  off,
 } from 'firebase/database';
 import TeacherCard from 'components/TeacherCard/TeacherCard';
 import { LoadMoreButton, StyledCardsContainer } from './TeachersList.styled';
@@ -18,7 +17,6 @@ const TeachersList = ({ favorite }) => {
   const [teachers, setTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
   const [allTeachers, setAllTeachers] = useState([]);
-  let teachersRef;
 
   const onLoadMore = async () => {
     const q = query(
@@ -68,11 +66,9 @@ const TeachersList = ({ favorite }) => {
     fetchTeachers();
 
     return () => {
-      if (teachersRef) {
-        off(teachersRef); // Відписуємося від подій
-      }
+      setTeachers([]);
     };
-  }, [teachersRef]);
+  }, []);
 
   const fetchAllTeachers = async () => {
     try {

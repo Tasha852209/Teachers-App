@@ -48,12 +48,12 @@ const FavoritesList = ({ favorite }) => {
       }
       return () => {
         if (q) {
-          off(q); // Відписуємося від подій
+          off(q);
         }
       };
     };
     fetchFavoriteTeachers();
-  }, [user.id, q]); // Викликається лише під час першого рендеру
+  }, [user.id, q]);
 
   const onLoadMore = async () => {
     const q = query(
@@ -95,12 +95,6 @@ const FavoritesList = ({ favorite }) => {
           favorite={favorite}
           teacher={teacher}
         />
-        {/* <HeartButton
-          className="heart-button"
-          onClick={() => removeFromFavorites(teacher.id)}
-        >
-          <Icon id="fill-heart" className="fill-heart" />
-        </HeartButton> */}
       </div>
     ));
   };

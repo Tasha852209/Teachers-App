@@ -4,6 +4,7 @@ export const StyledCard = styled.div`
   display: flex;
   gap: 48px;
   padding: 24px;
+  width: 1184px;
 
   background-color: #ffff;
 
@@ -33,6 +34,7 @@ export const StyledCard = styled.div`
   }
   .all-content,
   .other-content {
+    width: 968px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -143,6 +145,18 @@ export const StyledCard = styled.div`
     }
     padding-right: 16px;
   }
+`;
+
+export const ReadMoreButton = styled.button`
+  width: 80px;
+  margin-top: 8px;
+  padding: 0;
+  border: none;
+  text-decoration: underline;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  background: transparent;
 `;
 
 export const CardBookButton = styled.button`

@@ -4,9 +4,18 @@ import Level from './Level';
 import { updateFavorites } from '../../fire_base/users';
 import { useAuth } from 'providers';
 import Icon from 'components/Icon/Icon';
-import { CardBookButton, StyledCard } from './TeacherCard.styled';
+import {
+  CardBookButton,
+  ReadMoreButton,
+  StyledCard,
+} from './TeacherCard.styled';
+import { useState } from 'react';
+import ModalComponent from 'components/ModalComponent/ModalComponent';
+import BookTrialForm from 'components/BookTrialForm/BookTrialForm';
 
 const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
+  const [readMore, setReadMore] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const { user } = useAuth();
   const favorites = Array.isArray(user?.favorites) ? user.favorites : [];
 
@@ -30,6 +39,14 @@ const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
 
   const onSignIn = () => {
     return alert('Please register or sign in');
+  };
+
+  const onReadMore = prev => {
+    setReadMore(!prev);
+  };
+
+  const handleModalOpen = register => {
+    setModalVisible(true);
   };
 
   return (
@@ -105,23 +122,37 @@ const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
               <span className="grey-text-color">Conditions: </span>
               {teacher.conditions.join(' ')}
             </p>
+            <ReadMoreButton onClick={() => onReadMore(readMore)}>
+              {readMore ? 'Read less' : 'Read more'}
+            </ReadMoreButton>
           </div>
-          <p className="experience">{teacher.experience}</p>
+          {readMore && <p className="experience">{teacher.experience}</p>}
         </div>
         <div className="other-content">
-          <div className="reviews">
-            {teacher.reviews.map((review, index) => (
-              <Review key={index} review={review} />
-            ))}
-          </div>
+          {readMore && (
+            <div className="reviews">
+              {teacher.reviews.map((review, index) => (
+                <Review key={index} review={review} />
+              ))}
+            </div>
+          )}
           <div className="levels">
             {teacher.levels.map((level, index) => (
               <Level key={index} level={level} />
             ))}
           </div>
-          <CardBookButton>Book trial lesson</CardBookButton>
+          {readMore && (
+            <CardBookButton type="button" onClick={() => handleModalOpen(true)}>
+              Book trial lesson
+            </CardBookButton>
+          )}
         </div>
       </div>
+      {modalVisible && (
+        <ModalComponent visible={modalVisible} setVisible={setModalVisible}>
+          <BookTrialForm setVisible={setModalVisible} teacher={teacher} />
+        </ModalComponent>
+      )}
     </StyledCard>
   );
 };
