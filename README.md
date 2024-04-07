@@ -15,7 +15,7 @@
 - React Router для маршрутизації
 - HTML & CSS для верстки та стилізації
 
-## В проєкті використовується макет (https://www.figma.com/file/dewf5jVviSTuWMMyU3d8Mc/Learn-Lingo?type=design&node-id=0-1&mode=design&t=IWrS8PhWA23b48GL-0), що складається з трьох сторінок:
+## В проєкті використовується макет, що складається з трьох сторінок:
 
 - Home: Головна сторінка з переліком переваг компанії та посиланням на сторінку
   "Teachers".
@@ -23,6 +23,8 @@
   різними параметрами.
 - Favorites: Приватна сторінка, на якій користувач може переглянути обраних
   викладачів.
+
+[Посилання на макет](https://www.figma.com/file/dewf5jVviSTuWMMyU3d8Mc/Learn-Lingo?type=design&node-id=0-1&mode=design&t=IWrS8PhWA23b48GL-0)
 
 ## Підготовка для запуску проєкта:
 
