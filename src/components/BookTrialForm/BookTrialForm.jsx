@@ -13,10 +13,14 @@ const BookTrialForm = ({ setVisible, teacher }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      fullName: '',
       email: '',
-      password: '',
+      phone: '',
+      reason: '',
       validationSchema: bookSchema,
+      // onSubmit: values => {
+      //   return(values.email, values.password, setVisible);
+      // },
     },
   });
   return (

@@ -10,10 +10,13 @@ import {
 } from 'firebase/database';
 import TeacherCard from 'components/TeacherCard/TeacherCard';
 import { LoadMoreButton, StyledCardsContainer } from './TeachersList.styled';
+import { useAuth } from 'providers';
+import { Loader } from 'components/Loader/Loader';
 
 const PER_PAGE = 4;
 
 const TeachersList = ({ favorite }) => {
+  const { isRefreshing } = useAuth();
   const [teachers, setTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
   const [allTeachers, setAllTeachers] = useState([]);
@@ -123,14 +126,23 @@ const TeachersList = ({ favorite }) => {
   // }, [lastId]);
 
   return (
-    <StyledCardsContainer>
-      {teachers.map(teacher => (
-        <TeacherCard favorites={favorite} key={teacher.id} teacher={teacher} />
-      ))}
-      {teachers.length < allTeachers.length && (
-        <LoadMoreButton onClick={onLoadMore}>LOAD MORE</LoadMoreButton>
+    <>
+      {isRefreshing && <Loader />}
+      {!isRefreshing && (
+        <StyledCardsContainer>
+          {teachers.map(teacher => (
+            <TeacherCard
+              favorites={favorite}
+              key={teacher.id}
+              teacher={teacher}
+            />
+          ))}
+          {teachers.length < allTeachers.length && (
+            <LoadMoreButton onClick={onLoadMore}>LOAD MORE</LoadMoreButton>
+          )}
+        </StyledCardsContainer>
       )}
-    </StyledCardsContainer>
+    </>
   );
 };
 

@@ -8,6 +8,7 @@ import {
 import { auth, database } from '../../fire_base/config';
 import { createUser, getUser } from '../../fire_base/users';
 import { onValue, ref } from 'firebase/database';
+import { Loader } from 'components/Loader/Loader';
 
 export const AuthContext = createContext({ user: null });
 
@@ -104,7 +105,13 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{ user, userSignIn, userSignUp, userSignOut, error, setError }}
     >
-      {isRefreshing ? <div>...is loading</div> : children}
+      {isRefreshing ? (
+        <div>
+          <Loader />
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import PrivatreRoute from 'routes/PrivatreRoute';
+import { Loader } from './Loader/Loader';
 
 // import { database } from '../fire_base/config';
 // import { ref, set } from 'firebase/database';
@@ -38,7 +39,7 @@ const App = () => {
   // }, []);
 
   return (
-    <Suspense>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           {appRoutes.map(({ path, element }) => (

@@ -31,9 +31,6 @@ export const bookSchema = () => {
       .max(50, 'Must be 15 characters or less')
       .required('Required'),
     email: Yup.string().email('Invalid email address').required('Required'),
-    tel: Yup.string()
-      .phone('Invalid phone number. Example')
-      .required('Required')
-      .required('Required'),
+    tel: Yup.string().phone('Invalid phone number').required('Required'),
   });
 };

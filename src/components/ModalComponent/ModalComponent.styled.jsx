@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const StyledModalBackdrop = styled.div`
+  overflow-y: auto;
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
@@ -14,7 +15,8 @@ export const StyledModalBackdrop = styled.div`
 `;
 
 export const StyledModal = styled.div`
-  overflow: auto;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
   position: relative;
   background-color: white;
   padding: 64px;
