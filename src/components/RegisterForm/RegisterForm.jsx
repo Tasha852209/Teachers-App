@@ -48,7 +48,7 @@ const RegisterForm = ({ setVisible }) => {
               placeholder="Name"
             />
             {formik.touched.name && formik.errors.name ? (
-              <div>{formik.errors.name}</div>
+              <div className="error-red">{formik.errors.name}</div>
             ) : null}
           </label>
           <label>
@@ -61,7 +61,7 @@ const RegisterForm = ({ setVisible }) => {
               placeholder="Email"
             />
             {formik.touched.email && formik.errors.email ? (
-              <div>{formik.errors.email}</div>
+              <div className="error-red">{formik.errors.email}</div>
             ) : null}
           </label>
 
@@ -94,13 +94,13 @@ const RegisterForm = ({ setVisible }) => {
               </StyledAuthFormSpan>
             </div>
             {formik.touched.password && formik.errors.password ? (
-              <div>{formik.errors.password}</div>
+              <div className="error-red">{formik.errors.password}</div>
             ) : null}
           </label>
         </div>
 
         <SubmitButton type="submit">Sign Up</SubmitButton>
-        {error ? <p>{error}</p> : null}
+        {error ? <p className="error-red">{error}</p> : null}
       </form>
     </StyledModalContent>
   );

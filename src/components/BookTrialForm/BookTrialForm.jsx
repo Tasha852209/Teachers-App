@@ -95,7 +95,7 @@ const BookTrialForm = ({ setVisible, teacher }) => {
                 className="radio-input"
                 name="reason"
                 type="radio"
-                //   onChange={formik.handleChange}
+                // onChange={formik.handleChange}
                 value="Culture, travel or hobby"
               />
               <span>Culture, travel or hobby</span>

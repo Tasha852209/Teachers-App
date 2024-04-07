@@ -44,7 +44,7 @@ const FavoritesList = ({ favorite }) => {
           setLastId(normalizeData[normalizeData.length - 1]?.id);
         }
       } catch (error) {
-        console.log('Error fetching favorite teachers:', error);
+        alert('Error fetching favorite teachers:', error);
       }
       return () => {
         if (q) {
@@ -83,7 +83,7 @@ const FavoritesList = ({ favorite }) => {
         prev.filter(teacher => teacher.id !== teacherId)
       );
     } catch (error) {
-      console.log('Error removing teacher from favorites:', error);
+      alert('Error removing teacher from favorites:', error);
     }
   };
 

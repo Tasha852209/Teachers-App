@@ -39,7 +39,6 @@ const TeachersList = ({ favorite }) => {
       }));
       setTeachers(prev => [...prev, ...normalizeData]);
       setLastId(normalizeData[normalizeData.length - 1]?.id);
-      console.log(teachers);
     }
   };
 
@@ -63,7 +62,7 @@ const TeachersList = ({ favorite }) => {
           setLastId(normalizeData[normalizeData.length - 1].id);
         }
       } catch (error) {
-        console.log('Error fetching teachers:', error);
+        alert('Error fetching teachers:', error);
       }
     };
     fetchTeachers();
@@ -85,45 +84,10 @@ const TeachersList = ({ favorite }) => {
 
       setAllTeachers(allTeachersData);
     } catch (error) {
-      console.error('Error fetching teachers:', error);
+      alert('Error fetching teachers:', error);
     }
   };
   fetchAllTeachers();
-  // const onLoadMore = async () => {
-  //   setLastId(teachers[teachers.length - 1].id);
-  // };
-
-  // const firstRender = useRef(true);
-
-  // useEffect(() => {
-  //   if (firstRender.current) {
-  //     firstRender.current = false;
-  //     return;
-  //   }
-  //   const fetchTeachers = async () => {
-  //     const constraints = [orderByKey(), limitToFirst(PER_PAGE)];
-  //     if (lastId) constraints.push(startAfter(lastId));
-  //     try {
-  //       const teachersRef = query(ref(database, 'teachers'), ...constraints);
-  //       const snapshot = await get(teachersRef);
-
-  //       const data = snapshot.val();
-
-  //       if (snapshot.exists()) {
-  //         const normalizeData = Object.entries(data).map(([key, value]) => ({
-  //           id: key,
-  //           ...value,
-  //         }));
-  //         setTeachers(prev => [...prev, ...normalizeData]);
-  //         //    setLastId(teachers[teachers.length - 1].id);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching teachers:', error);
-  //     }
-  //   };
-
-  //   fetchTeachers();
-  // }, [lastId]);
 
   return (
     <>

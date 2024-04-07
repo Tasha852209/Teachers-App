@@ -24,14 +24,11 @@ const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
     let updatedFavorites;
 
     if (isFavorite) {
-      // Видаляємо вчителя зі списку улюблених
       updatedFavorites = favorites.filter(t => t.id !== teacher.id);
     } else {
-      // Додаємо вчителя до списку улюблених
       updatedFavorites = [...favorites, teacher];
     }
 
-    // Оновлюємо список улюблених у базі даних
     updateFavorites(user.id, updatedFavorites);
   };
 

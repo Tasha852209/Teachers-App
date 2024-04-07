@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
           setUserId(uid);
         } catch (error) {
-          console.log(error.message);
+          alert(error.message);
         } finally {
           setIsRefreshing(false);
         }
@@ -74,7 +74,6 @@ export const AuthProvider = ({ children }) => {
         setUser(currentUser);
       }
     } catch (error) {
-      console.log(error.message);
       setError('Email or password is wrong!');
     }
   };
@@ -86,7 +85,6 @@ export const AuthProvider = ({ children }) => {
         setVisible(false);
       })
       .catch(err => {
-        console.log(err.message);
         setError('Email in use!');
       });
   };

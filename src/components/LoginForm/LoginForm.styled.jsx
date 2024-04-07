@@ -46,6 +46,10 @@ export const StyledModalContent = styled.div`
     gap: 18px;
     width: 438px;
   }
+
+  .error-red {
+    color: red;
+  }
 `;
 export const StyledAuthFormSpan = styled.span`
   .eye-icon,

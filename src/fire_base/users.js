@@ -13,7 +13,7 @@ export const getUser = async id => {
       return null;
     }
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -23,7 +23,7 @@ export const createUser = async (userId, body) => {
 
     return { id: userId, ...body };
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
 
@@ -31,6 +31,6 @@ export const updateFavorites = async (id, body) => {
   try {
     set(ref(database, `users/${id}/favorites`), body);
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 };
