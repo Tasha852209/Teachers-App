@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/Teachers-App/static/css/main.ee100b71.css",
-    "main.js": "/Teachers-App/static/js/main.57ea4a36.js",
+    "main.js": "/Teachers-App/static/js/main.181abc0c.js",
     "static/js/306.6006571a.chunk.js": "/Teachers-App/static/js/306.6006571a.chunk.js",
-    "static/js/831.3a98e3a0.chunk.js": "/Teachers-App/static/js/831.3a98e3a0.chunk.js",
-    "static/js/347.0b08d570.chunk.js": "/Teachers-App/static/js/347.0b08d570.chunk.js",
+    "static/js/831.37f56bbd.chunk.js": "/Teachers-App/static/js/831.37f56bbd.chunk.js",
+    "static/js/347.a1f4a784.chunk.js": "/Teachers-App/static/js/347.a1f4a784.chunk.js",
     "static/media/hero-img.png": "/Teachers-App/static/media/hero-img.b31a5e01f528a292bda0.png",
     "static/media/sprite.svg": "/Teachers-App/static/media/sprite.a6a92f75031378a1119fcced7bfec14e.svg",
     "index.html": "/Teachers-App/index.html",
     "main.ee100b71.css.map": "/Teachers-App/static/css/main.ee100b71.css.map",
-    "main.57ea4a36.js.map": "/Teachers-App/static/js/main.57ea4a36.js.map",
+    "main.181abc0c.js.map": "/Teachers-App/static/js/main.181abc0c.js.map",
     "306.6006571a.chunk.js.map": "/Teachers-App/static/js/306.6006571a.chunk.js.map",
-    "831.3a98e3a0.chunk.js.map": "/Teachers-App/static/js/831.3a98e3a0.chunk.js.map",
-    "347.0b08d570.chunk.js.map": "/Teachers-App/static/js/347.0b08d570.chunk.js.map"
+    "831.37f56bbd.chunk.js.map": "/Teachers-App/static/js/831.37f56bbd.chunk.js.map",
+    "347.a1f4a784.chunk.js.map": "/Teachers-App/static/js/347.a1f4a784.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ee100b71.css",
-    "static/js/main.57ea4a36.js"
+    "static/js/main.181abc0c.js"
   ]
 }
