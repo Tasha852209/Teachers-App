@@ -15,6 +15,7 @@ import { useAuth } from 'providers';
 
 import { LoadMoreButton } from 'components/TeachersList/TeachersList.styled';
 import { StyledFavoritesCardsContainer } from './FavoritesList.styled';
+import { Notify } from 'notiflix';
 
 const PER_PAGE = 4;
 
@@ -44,7 +45,7 @@ const FavoritesList = ({ favorite }) => {
           setLastId(normalizeData[normalizeData.length - 1]?.id);
         }
       } catch (error) {
-        alert('Error fetching favorite teachers:', error);
+        Notify.failure('Error fetching favorite teachers:', error);
       }
       return () => {
         if (q) {
@@ -82,8 +83,9 @@ const FavoritesList = ({ favorite }) => {
       setFavoriteTeachers(prev =>
         prev.filter(teacher => teacher.id !== teacherId)
       );
+      Notify.info('Deleted from favorites');
     } catch (error) {
-      alert('Error removing teacher from favorites:', error);
+      Notify.failure('Error removing teacher from favorites:', error);
     }
   };
 

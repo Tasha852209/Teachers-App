@@ -12,6 +12,7 @@ import TeacherCard from 'components/TeacherCard/TeacherCard';
 import { LoadMoreButton, StyledCardsContainer } from './TeachersList.styled';
 import { useAuth } from 'providers';
 import { Loader } from 'components/Loader/Loader';
+import { Notify } from 'notiflix';
 
 const PER_PAGE = 4;
 
@@ -62,7 +63,7 @@ const TeachersList = ({ favorite }) => {
           setLastId(normalizeData[normalizeData.length - 1].id);
         }
       } catch (error) {
-        alert('Error fetching teachers:', error);
+        Notify.failure('Error fetching teachers:', error);
       }
     };
     fetchTeachers();
@@ -84,7 +85,7 @@ const TeachersList = ({ favorite }) => {
 
       setAllTeachers(allTeachersData);
     } catch (error) {
-      alert('Error fetching teachers:', error);
+      Notify.failure('Error fetching teachers:', error);
     }
   };
   fetchAllTeachers();

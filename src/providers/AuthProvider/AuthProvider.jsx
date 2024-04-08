@@ -9,6 +9,7 @@ import { auth, database } from '../../fire_base/config';
 import { createUser, getUser } from '../../fire_base/users';
 import { onValue, ref } from 'firebase/database';
 import { Loader } from 'components/Loader/Loader';
+import { Notify } from 'notiflix';
 
 export const AuthContext = createContext({ user: null });
 
@@ -37,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
           setUserId(uid);
         } catch (error) {
-          alert(error.message);
+          Notify.failure(error.message);
         } finally {
           setIsRefreshing(false);
         }

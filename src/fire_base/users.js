@@ -1,5 +1,6 @@
 import { child, get, ref, set } from 'firebase/database';
 import { database } from './config';
+import { Notify } from 'notiflix';
 
 export const getUser = async id => {
   const dbRef = ref(database);
@@ -13,7 +14,7 @@ export const getUser = async id => {
       return null;
     }
   } catch (error) {
-    alert(error.message);
+    Notify.failure(error.message);
   }
 };
 
@@ -23,7 +24,7 @@ export const createUser = async (userId, body) => {
 
     return { id: userId, ...body };
   } catch (error) {
-    alert(error.message);
+    Notify.failure(error.message);
   }
 };
 
@@ -31,6 +32,6 @@ export const updateFavorites = async (id, body) => {
   try {
     set(ref(database, `users/${id}/favorites`), body);
   } catch (error) {
-    alert(error.message);
+    Notify.failure(error.message);
   }
 };

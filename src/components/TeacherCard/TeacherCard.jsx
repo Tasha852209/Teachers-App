@@ -12,6 +12,7 @@ import {
 import { useState } from 'react';
 import ModalComponent from 'components/ModalComponent/ModalComponent';
 import BookTrialForm from 'components/BookTrialForm/BookTrialForm';
+import { Notify } from 'notiflix';
 
 const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
   const [readMore, setReadMore] = useState(false);
@@ -25,8 +26,10 @@ const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
 
     if (isFavorite) {
       updatedFavorites = favorites.filter(t => t.id !== teacher.id);
+      Notify.info('Deleted from favorites');
     } else {
       updatedFavorites = [...favorites, teacher];
+      Notify.info('Added to favorites');
     }
 
     updateFavorites(user.id, updatedFavorites);
@@ -35,7 +38,7 @@ const TeacherCard = ({ teacher, favorite, removeFromFavorites }) => {
   const isFavorite = favorites.some(t => t.id === teacher.id);
 
   const onSignIn = () => {
-    return alert('Please register or sign in');
+    return Notify.info('Please register or sign in');
   };
 
   const onReadMore = prev => {

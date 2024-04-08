@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { StyledHomeSection, SubmitHeroButton } from './HomePage.styled';
 import HeroImage from '../../assets/hero-img.png';
+import HeroImageRetina from '../../assets/hero-img_2x.png';
 
 const HomePage = () => {
   return (
@@ -21,7 +22,12 @@ const HomePage = () => {
             <SubmitHeroButton>Get started</SubmitHeroButton>
           </NavLink>
         </div>
-        <img className="hero-img" src={HeroImage} alt="Hero" />
+        <img
+          className="hero-img"
+          src={HeroImage}
+          srcSet={`${HeroImage} 1x, ${HeroImageRetina} 2x`}
+          alt="Hero"
+        />
       </div>
       <div className="results">
         <div className="results-item">

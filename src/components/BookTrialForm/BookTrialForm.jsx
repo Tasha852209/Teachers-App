@@ -7,6 +7,7 @@ import {
   StyledModalBookContent,
   StyledSelectedTeacher,
 } from './BookTrialForm.styled';
+import { Notify } from 'notiflix';
 
 const BookTrialForm = ({ setVisible, teacher }) => {
   const { user, error } = useAuth();
@@ -151,7 +152,7 @@ const BookTrialForm = ({ setVisible, teacher }) => {
           onClick={() =>
             user
               ? (window.location.href = 'tel:+380730000000')
-              : alert('Please signIn or signUp!')
+              : Notify.warning('Please signIn or signUp!')
           }
         >
           Book
