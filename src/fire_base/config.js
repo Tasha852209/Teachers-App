@@ -3,14 +3,14 @@ import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDCeZQ2zpDlDFUo_4BxRqx9lwPmgI2txpM',
-  authDomain: 'teacher-app-8e273.firebaseapp.com',
+  apiKey: 'AIzaSyD5AJ0tcibKhRfBXltuhQck-DxKMrbGDNo',
+  authDomain: 'lingo-app-71454.firebaseapp.com',
   databaseURL:
-    'https://teacher-app-8e273-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'teacher-app-8e273',
-  storageBucket: 'teacher-app-8e273.appspot.com',
-  messagingSenderId: '209301642079',
-  appId: '1:209301642079:web:3362d1e88ce2b17695b4ea',
+    'https://lingo-app-71454-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'lingo-app-71454',
+  storageBucket: 'lingo-app-71454.appspot.com',
+  messagingSenderId: '609561006227',
+  appId: '1:609561006227:web:8b1d910e2f7967c60b3d66',
 };
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

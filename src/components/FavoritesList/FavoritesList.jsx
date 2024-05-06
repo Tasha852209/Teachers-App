@@ -88,7 +88,6 @@ const FavoritesList = ({ favorite }) => {
       Notify.failure('Error removing teacher from favorites:', error);
     }
   };
-
   const renderFavoriteTeachers = () => {
     return favoriteTeachers.map(teacher => (
       <div key={teacher.id}>
