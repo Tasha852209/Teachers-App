@@ -23,12 +23,12 @@ const FavoritesList = ({ favorite }) => {
   const [favoriteTeachers, setFavoriteTeachers] = useState([]);
   const [lastId, setLastId] = useState(null);
   const { user } = useAuth();
-  let q;
 
   useEffect(() => {
     const fetchFavoriteTeachers = async () => {
+      let q;
       try {
-        const q = query(
+        q = query(
           ref(database, `users/${user.id}/favorites`),
           orderByKey(),
           limitToFirst(PER_PAGE)
@@ -54,7 +54,7 @@ const FavoritesList = ({ favorite }) => {
       };
     };
     fetchFavoriteTeachers();
-  }, [user.id, q]);
+  }, [user.id]);
 
   const onLoadMore = async () => {
     const q = query(
