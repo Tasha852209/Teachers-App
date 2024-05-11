@@ -7,11 +7,11 @@ import App from 'components/App';
 import { AuthProvider } from 'providers';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <>
+  <React.StrictMode>
     <AuthProvider>
       <BrowserRouter basename="/Teachers-App">
         <App />
       </BrowserRouter>
     </AuthProvider>
-  </>
+  </React.StrictMode>
 );

@@ -24,8 +24,6 @@
 - Favorites: Приватна сторінка, на якій користувач може переглянути обраних
   викладачів.
 
-[Посилання на макет](https://www.figma.com/file/dewf5jVviSTuWMMyU3d8Mc/Learn-Lingo?type=design&node-id=0-1&mode=design&t=IWrS8PhWA23b48GL-0)
-
 ## Підготовка для запуску проєкта:
 
 1. Переконайся що на комп'ютері встановлено LTS-версія Node.js.
