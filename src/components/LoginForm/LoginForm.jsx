@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { loginSchema } from 'schemas/authSchemas';
 import {
   StyledAuthFormSpan,
@@ -11,9 +11,13 @@ import Icon from 'components/Icon/Icon';
 import { useAuth } from '../../providers/AuthProvider';
 
 const LoginForm = ({ setVisible }) => {
-  const { userSignIn, error } = useAuth();
+  const { userSignIn, error, setError } = useAuth();
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
+
+  useEffect(() => {
+    setError(null);
+  }, [setError]);
 
   const formik = useFormik({
     initialValues: {
@@ -38,7 +42,13 @@ const LoginForm = ({ setVisible }) => {
       <form onSubmit={formik.handleSubmit}>
         <div className="inputs">
           <label>
+            <span
+              className={formik.errors.email ? 'gap-error' : 'gap-normal'}
+            ></span>
             <input
+              className={
+                formik.errors.email ? 'input-red input' : 'input-black input'
+              }
               name="email"
               type="email"
               onChange={formik.handleChange}
@@ -48,12 +58,22 @@ const LoginForm = ({ setVisible }) => {
             />
             {formik.touched.email && formik.errors.email ? (
               <div className="error-red">{formik.errors.email}</div>
-            ) : null}
+            ) : (
+              <div className="empty"> </div>
+            )}
           </label>
 
           <label>
+            <span
+              className={formik.errors.password ? 'gap-error' : 'gap-normal'}
+            ></span>
             <div className="eye-input">
               <input
+                className={
+                  formik.errors.password
+                    ? 'input-red input'
+                    : 'input-black input'
+                }
                 name="password"
                 type={passwordToggleInput}
                 onChange={formik.handleChange}
@@ -81,12 +101,14 @@ const LoginForm = ({ setVisible }) => {
             </div>
             {formik.touched.password && formik.errors.password ? (
               <div className="error-red">{formik.errors.password}</div>
-            ) : null}
+            ) : (
+              <div className="empty"> </div>
+            )}
           </label>
         </div>
 
         <SubmitButton type="submit">Sign In</SubmitButton>
-        {error ? <p className="error-red">{error}</p> : null}
+        <p className="error-main-red">{error ? error : ' '}</p>
       </form>
     </StyledModalContent>
   );

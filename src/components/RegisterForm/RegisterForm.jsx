@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { registerSchema } from 'schemas/authSchemas';
 import {
   StyledAuthFormSpan,
@@ -11,9 +11,13 @@ import Icon from 'components/Icon/Icon';
 import { useAuth } from '../../providers/AuthProvider';
 
 const RegisterForm = ({ setVisible }) => {
-  const { userSignUp, error } = useAuth();
+  const { userSignUp, error, setError } = useAuth();
   const [passwordToggleInput, setPasswordToggleInput] = useState('password');
   const [passwordToggleIcon, setPasswordToggleIcon] = useState(false);
+
+  useEffect(() => {
+    setError(null);
+  }, [setError]);
 
   const formik = useFormik({
     initialValues: {
@@ -39,7 +43,13 @@ const RegisterForm = ({ setVisible }) => {
       <form onSubmit={formik.handleSubmit}>
         <div className="inputs">
           <label>
+            <span
+              className={formik.errors.name ? 'gap-error' : 'gap-normal'}
+            ></span>
             <input
+              className={
+                formik.errors.name ? 'input-red input' : 'input-black input'
+              }
               name="name"
               type="text"
               onChange={formik.handleChange}
@@ -49,10 +59,18 @@ const RegisterForm = ({ setVisible }) => {
             />
             {formik.touched.name && formik.errors.name ? (
               <div className="error-red">{formik.errors.name}</div>
-            ) : null}
+            ) : (
+              <div className="empty"> </div>
+            )}
           </label>
           <label>
+            <span
+              className={formik.errors.email ? 'gap-error' : 'gap-normal'}
+            ></span>
             <input
+              className={
+                formik.errors.email ? 'input-red input' : 'input-black input'
+              }
               name="email"
               type="email"
               onChange={formik.handleChange}
@@ -62,12 +80,22 @@ const RegisterForm = ({ setVisible }) => {
             />
             {formik.touched.email && formik.errors.email ? (
               <div className="error-red">{formik.errors.email}</div>
-            ) : null}
+            ) : (
+              <div className="empty"> </div>
+            )}
           </label>
 
           <label>
+            <span
+              className={formik.errors.password ? 'gap-error' : 'gap-normal'}
+            ></span>
             <div className="eye-input">
               <input
+                className={
+                  formik.errors.password
+                    ? 'input-red input'
+                    : 'input-black input'
+                }
                 name="password"
                 type={passwordToggleInput}
                 onChange={formik.handleChange}
@@ -95,12 +123,14 @@ const RegisterForm = ({ setVisible }) => {
             </div>
             {formik.touched.password && formik.errors.password ? (
               <div className="error-red">{formik.errors.password}</div>
-            ) : null}
+            ) : (
+              <div className="empty"> </div>
+            )}
           </label>
         </div>
 
         <SubmitButton type="submit">Sign Up</SubmitButton>
-        {error ? <p className="error-red">{error}</p> : null}
+        <p className="error-main-red">{error ? error : ' '}</p>
       </form>
     </StyledModalContent>
   );

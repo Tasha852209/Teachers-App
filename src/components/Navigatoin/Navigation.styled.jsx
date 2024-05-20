@@ -62,15 +62,20 @@ export const StyledHeader = styled.header`
 `;
 
 export const StyledLogButton = styled.button`
-  border: none;
+  border: 2px solid transparent;
   height: 48px;
   border-radius: 7px;
   background-color: transparent;
   margin-left: auto;
-  &:hover,
+  &:hover {
+    border: 2px solid var(--primary-orange);
+    border-radius: 12px;
+  }
   &:focus,
   &:active {
     background-color: #ffedbf;
+    border: 2px solid var(--primary-orange);
+    border-radius: 12px;
   }
 `;
 
@@ -95,6 +100,6 @@ export const RegisterButton = styled.button`
 
 export const StyledNavlink = styled(NavLink)`
   &.active {
-    background-color: #ffedbf;
+    border-bottom: 2px solid var(--primary-orange);
   }
 `;

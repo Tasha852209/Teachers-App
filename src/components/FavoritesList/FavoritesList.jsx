@@ -57,14 +57,14 @@ const FavoritesList = ({ favorite }) => {
   }, [user.id]);
 
   const onLoadMore = async () => {
-    const q = query(
+    const qLoadMore = query(
       ref(database, `users/${user.id}/favorites`),
       orderByKey(),
       startAfter(lastId),
       limitToFirst(PER_PAGE)
     );
 
-    const snapshot = await get(q);
+    const snapshot = await get(qLoadMore);
     const data = snapshot.val();
 
     if (snapshot.exists()) {

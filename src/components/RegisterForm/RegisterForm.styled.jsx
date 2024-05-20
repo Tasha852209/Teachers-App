@@ -27,7 +27,7 @@ export const StyledModalContent = styled.div`
     position: relative;
   }
 
-  input {
+  .input {
     width: 100%;
     height: 54px;
     padding: 16px;
@@ -43,12 +43,40 @@ export const StyledModalContent = styled.div`
   .inputs {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 8px;
     width: 438px;
   }
 
   .error-red {
+    font-size: 10px;
+    height: 10px;
     color: red;
+  }
+  .error-main-red {
+    font-size: 18px;
+    height: 18px;
+    color: red;
+  }
+  .empty {
+    font-size: 10px;
+    height: 10px;
+  }
+
+  .gap-error {
+    gap: 2px;
+  }
+  .gap-normal {
+    gap: 8px;
+  }
+
+  .input-red {
+    border: 1px solid red;
+    color: red;
+    gap: 4px;
+  }
+  .input-black {
+    gap: 8px;
+    border: 1px solid #1214171a;
   }
 `;
 export const StyledAuthFormSpan = styled.span`
