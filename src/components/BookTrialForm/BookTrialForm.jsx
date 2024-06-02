@@ -17,13 +17,14 @@ const BookTrialForm = ({ setVisible, teacher }) => {
       fullName: '',
       email: '',
       phone: '',
-      reason: '',
-      validationSchema: bookSchema,
-      // onSubmit: values => {
-      //   return(values.email, values.password, setVisible);
-      // },
+      reason: 'Career and business', 
     },
+    validationSchema: bookSchema,
+    // onSubmit: values => {
+    //   userSignUp(values.email, values.password, setVisible);
+    // },
   });
+
   return (
     <StyledModalBookContent>
       <div className="text">
@@ -55,7 +56,8 @@ const BookTrialForm = ({ setVisible, teacher }) => {
               <input
                 name="reason"
                 type="radio"
-                //   onChange={formik.handleChange}
+                onChange={formik.handleChange}
+                checked={formik.values.reason === 'Career and business'}
                 value="Career and business"
               />
               <span>Career and business</span>
@@ -65,7 +67,8 @@ const BookTrialForm = ({ setVisible, teacher }) => {
               <input
                 name="reason"
                 type="radio"
-                //   onChange={formik.handleChange}
+                onChange={formik.handleChange}
+                checked={formik.values.reason === 'Lesson for kids'}
                 value="Lesson for kids"
               />
               <span>Lesson for kids</span>
@@ -75,7 +78,8 @@ const BookTrialForm = ({ setVisible, teacher }) => {
               <input
                 name="reason"
                 type="radio"
-                //   onChange={formik.handleChange}
+                onChange={formik.handleChange}
+                checked={formik.values.reason === 'Living abroad'} 
                 value="Living abroad"
               />
               <span>Living abroad</span>
@@ -85,7 +89,8 @@ const BookTrialForm = ({ setVisible, teacher }) => {
               <input
                 name="reason"
                 type="radio"
-                //   onChange={formik.handleChange}
+                onChange={formik.handleChange}
+                checked={formik.values.reason === 'Exams and coursework'}
                 value="Exams and coursework"
               />
               <span>Exams and coursework</span>
@@ -96,7 +101,8 @@ const BookTrialForm = ({ setVisible, teacher }) => {
                 className="radio-input"
                 name="reason"
                 type="radio"
-                // onChange={formik.handleChange}
+                onChange={formik.handleChange}
+                checked={formik.values.reason === 'Culture, travel or hobby'} 
                 value="Culture, travel or hobby"
               />
               <span>Culture, travel or hobby</span>

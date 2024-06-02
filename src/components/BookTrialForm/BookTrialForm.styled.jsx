@@ -91,13 +91,14 @@ export const StyledSelectedTeacher = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
-    width: 81px;
+    width: 150px;
   }
 
   #teacher-img {
     display: block;
     box-shadow: none;
     width: 44px;
+    height: 44px;
     border-radius: 50%;
   }
   .text-your-teacher {
@@ -105,6 +106,7 @@ export const StyledSelectedTeacher = styled.div`
     line-height: 1.33;
   }
   .teacher-name {
+    width: 100%;
     font-size: 16px;
     line-height: 1.5;
     font-weight: 500;
