@@ -71,7 +71,7 @@ export const StyledModalBookContent = styled.div`
   }
 
   input[type='radio'] {
-    width: 24px;
+    width: 15px;
 
     accent-color: #1214171a;
   }
